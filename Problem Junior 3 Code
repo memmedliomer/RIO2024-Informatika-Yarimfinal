@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+const ll MAX = 1e5;
+ll n, m, a[MAX];
+int main()
+{
+    cin >> n >> m;
+    multiset < pair < ll, pair < ll, ll > > > s;
+    for(ll i = 1; i <= n; i++){
+        cin >> a[i];
+        if(i != 1){
+            s.insert({a[i] + a[i - 1], {a[i - 1], a[i]}});
+        }
+    }
+    ll need = m - n;
+    ll x, y, cur;
+    pair < ll, pair < ll, ll > > c;
+    while(need--){
+        c = *s.begin();
+        s.erase(s.begin());
+        cur = c.first;
+        x = c.second.first, y = c.second.second;
+        s.insert({cur + x, {x, cur}});
+        s.insert({cur + y, {cur, y}});
+    }
+    ll mx = 0;
+    for(auto i : s){
+        mx = max({mx, (ll)(i.second.second), (ll)(i.second.first)});
+    }
+    cout << mx;
+}

@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main()
+{
+    ll x, y;
+    cin >> y >> x;
+    ll n = x / y + (x % y == 0 && x != 0) + 1, m = x % y + 1;
+    ll res = 0;
+    if(n > 1)res += x - y;
+    if(n < y)res += x + y;
+    if(m > 1)res += x - 1;
+    if( m < y)res += x + 1;
+    cout << res;
+}

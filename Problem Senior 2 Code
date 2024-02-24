@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define in insert
+#define pb push_back
+#define vl vector<ll>
+#define fi first
+#define se second
+#define all(v) v.begin(), v.end()
+using namespace std;
+const int sz = 2e6+6;
+bool ok[sz];
+int main()
+{
+    int n, i, x;
+    cin >> n;
+    for(i = 1; i <= n; i++){
+        cin >> x;
+        ok[x]++;
+    }
+    for(i = 1; i <= n; i++){
+        if(!ok[i]){
+            cout << i << endl;
+            return 0;
+        }
+    }
+    cout << -1 << endl;
+}

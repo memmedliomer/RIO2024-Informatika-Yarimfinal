@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+const ll MAX = 1e5;
+ll n, m, a[MAX], k, used[MAX];
+ll ch(string s){
+    for(ll i = 1; i <= n / 2; i++){
+        if(i !=  n - i + 1)return 0;
+    }
+    return 1;
+}
+int main()
+{
+    string t;
+    cin >> t >> k;
+    t = " " + t;
+    ll n = t.size() - 1;
+    set < pair < ll, ll > > s;
+    for(ll i = 1; i <= n / 2; i++){
+        if(t[i] != t[n - i + 1])s.insert({i, n - i + 1});
+    }
+    ll need = s.size();
+    if(need > k){
+        cout << ":(";
+        return 0;
+    }
+    ll x, y;
+    for(auto i : s){
+        ll x = i.first, y = i.second;
+        if(t[x] < t[y])swap(x, y);
+        t[y] = t[x];
+        k--;
+        used[min(x, y)] = 1;
+    }
+    for(ll i = 1; i <= n / 2 && k; i++){
+        if(used[i]){
+            k--;
+            if(t[i] == 'z' || t[n - i + 1] == 'z')k++;
+            t[i] = t[n - i + 1] = 'z';
+        }
+        else{
+            if(k >= 2 && t[i] != 'z'){
+                k -= 2;
+                t[i] = t[n - i + 1] = 'z';
+            }
+        }
+    }
+    if((n & 1) && k)t[n / 2 + 1] = 'z';
+    string ans = "";
+    for(ll i = 1; i <= n; i++)ans += t[i];
+    cout << ans;
+}
